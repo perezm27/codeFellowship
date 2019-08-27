@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <title>Log In</title>
+
+</head>
+<body>
+<!--<form method="POST" th:action="${'/user/{id}'}">-->
+    <form method="POST" action="/login">
+        <fieldset>
+            <legend>Sign in</legend>
+            <label>Username:</label><input name="username" required/>
+            <label>Password:</label><input type="password" name="password" required/>
+            <input type="submit" required/>
+        </fieldset>
+    </form>
+</body>
+</html>
+
+
+
