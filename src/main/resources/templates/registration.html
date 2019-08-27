@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <title>Sign Up</title>
+</head>
+<body>
+<div id="container">
+    <form method="POST" action="/users">
+        <fieldset>
+            <legend>Sign Up</legend>
+            <label>Username:</label><input name="username" id="username" required/>
+            <label>Password:</label><input type="password" id="password" name="password" required/>
+            <label>FirstName:</label><input type="text" id="firstname" name="firstname" required/>
+            <label>LastName:</label><input type="text" id="lastname" name="lastname" required/>
+            <label>DOB:</label><input type="date" id="dob" name="dateOfBirth" required/>
+            <label>Bio:</label><input type="text" id="bio" name="bio" required/>
+            <input type="submit" required/>
+        </fieldset>
+    </form>
+</div>
+
+</body>
+</html>
