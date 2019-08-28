@@ -3,12 +3,10 @@ package com.perezm27.CodeFellowship.models;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.sql.Date;
 import java.util.Collection;
+import java.util.List;
 
 @Entity
 public class ApplicationUser implements UserDetails {
@@ -23,6 +21,10 @@ public class ApplicationUser implements UserDetails {
     public Date dateOfBirth;
     public String bio;
 
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "user")
+    List<UserPost> posts;
+
+
     public ApplicationUser(){}
 
     public ApplicationUser(String username, String password, String firstname, String lastname, Date dateOfBirth, String bio){
@@ -32,6 +34,10 @@ public class ApplicationUser implements UserDetails {
         this.lastname = lastname;
         this.dateOfBirth = dateOfBirth;
         this.bio = bio;
+    }
+
+    public List<UserPost> getPosts() {
+        return posts;
     }
 
     @Override
