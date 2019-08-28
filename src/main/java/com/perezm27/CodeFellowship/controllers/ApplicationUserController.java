@@ -10,6 +10,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.view.RedirectView;
 
@@ -39,12 +40,15 @@ public class ApplicationUserController {
         applicationUserRepository.save(newUser);
         Authentication authentication = new UsernamePasswordAuthenticationToken(newUser, null, new ArrayList<>());
         SecurityContextHolder.getContext().setAuthentication(authentication);
-        return new RedirectView("/users");
+        return new RedirectView("/myprofile");
     }
 
-    @GetMapping("/login")
-    public String getLoginPage(){
-        return "login";
+//  User profile
+    @GetMapping("/myprofile")
+    public String getProfilePage(Principal p, Model m){
+            ApplicationUser currentUser = applicationUserRepository.findByUsername(p.getName());
+            m.addAttribute("user", currentUser);
+        return "myprofile";
     }
 
     @GetMapping("/users")
@@ -54,15 +58,29 @@ public class ApplicationUserController {
         return "users";
     }
 
+    @GetMapping("/users/{id}")
+    public String getUsersId(@PathVariable long id, Principal p, Model m){
+        ApplicationUser currentUser = applicationUserRepository.findById(id).get();
+        m.addAttribute("user", currentUser);
+        return "myprofile";
+    }
+
+//	Root
     @GetMapping("/")
     public String getRoot(Principal p, Model m) {
 //        m.addAttribute("user", p);
         return "root";
     }
 
+//	SignUp route
     @GetMapping("/signup")
     public String getSignup() {
         return "registration";
     }
 
+//	Login route
+    @GetMapping("/login")
+    public String getLoginPage(){
+        return "login";
+    }
 }

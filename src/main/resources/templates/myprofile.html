@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link rel="stylesheet" href="/style.css">
-    <title>Users</title>
+    <title>My Profile</title>
 </head>
 <body>
 <div th:replace="fragments/nav :: nav"></div>
@@ -16,13 +16,18 @@
         <h3 th:text="${user.dateOfBirth}"></h3>
         <h3 th:text="${user.bio}"></h3>
     </div>
+
+<h2>Create New Post</h2>
+<form method="post" action="/post">
+    <label for="body">Body</label><input id="body" name="body" type="text" required />
+    <label for="createdAt">Please enter current date</label><input id="createdAt" name="createdAt"  type="date" required/>
+
+    <input type="submit" />
+    <ul>
+        <li th:each="posts : ${user.posts}" th:text="${posts}">
+        </li>
+    </ul>
+</form>
 </div>
 </body>
 </html>
-
-
-<!--<ul>-->
-    <!--&lt;!&ndash;<li th:each="user : ${viewedUser.id}" th:text="${user.username}">&ndash;&gt;-->
-
-    <!--</li>-->
-<!--</ul>-->
