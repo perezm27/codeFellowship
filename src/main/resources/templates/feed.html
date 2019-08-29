@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="/style.css">
+    <title>User Feed</title>
+</head>
+<body>
+<div th:replace="fragments/nav :: nav"></div>
+<h1>Here are your followers</h1>
+<div th:each="users : ${followers}">
+    <h3 th:text="${users.username}"></h3>
+    <ul>
+        <li th:each="posts : ${users.posts}" th:text="${posts}">
+        </li>
+    </ul>
+</div>
+</body>
+</html>

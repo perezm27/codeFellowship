@@ -16,18 +16,18 @@
         <h3 th:text="${user.dateOfBirth}"></h3>
         <h3 th:text="${user.bio}"></h3>
     </div>
-
+<div th:if="${currentUser} != ${user.id}">
 <h2>Create New Post</h2>
 <form method="post" action="/post">
     <label for="body">Body</label><input id="body" name="body" type="text" required />
     <label for="createdAt">Please enter current date</label><input id="createdAt" name="createdAt"  type="date" required/>
 
     <input type="submit" />
+</form>
+</div>
     <ul>
         <li th:each="posts : ${user.posts}" th:text="${posts}">
         </li>
     </ul>
-</form>
-</div>
 </body>
 </html>

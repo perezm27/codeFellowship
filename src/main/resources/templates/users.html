@@ -7,22 +7,22 @@
     <title>Users</title>
 </head>
 <body>
-<div th:replace="fragments/nav :: nav"></div>
+    <div th:replace="fragments/nav :: nav"></div>
     <div>
         <img src="/default-avatar.png">
-        <h3 th:text="${user.username}"></h3>
-        <h3 th:text="${user.firstname}"></h3>
-        <h3 th:text="${user.lastname}"></h3>
-        <h3 th:text="${user.dateOfBirth}"></h3>
-        <h3 th:text="${user.bio}"></h3>
     </div>
-</div>
+
+    <div th:each="user : ${allusers}">
+        New User:<h3 th:text="${user.username}"></h3>
+        <a th:href="'/users/' + ${user.id}"><h4 th:text="${user.firstname}"></h4></a>
+        <h4 th:text="${user.lastname}"></h4>
+        <h4 th:text="${user.dateOfBirth}"></h4>
+        <h4 th:text="${user.bio}"></h4>
+
+        <form method="POST" action="/feed">
+            <button type="submit">Follow</button>
+            <input type="hidden" name="followedUser" th:value="${user.id}">
+        </form>
+    </div>
 </body>
 </html>
-
-
-<!--<ul>-->
-    <!--&lt;!&ndash;<li th:each="user : ${viewedUser.id}" th:text="${user.username}">&ndash;&gt;-->
-
-    <!--</li>-->
-<!--</ul>-->
