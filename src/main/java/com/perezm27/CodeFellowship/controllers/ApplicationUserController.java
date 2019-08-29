@@ -17,6 +17,7 @@ import org.springframework.web.servlet.view.RedirectView;
 import java.security.Principal;
 import java.sql.Date;
 import java.util.ArrayList;
+import java.util.List;
 
 @Controller
 public class ApplicationUserController {
@@ -53,8 +54,10 @@ public class ApplicationUserController {
 
     @GetMapping("/users")
     public String getUsers(Principal p, Model m){
+        List<ApplicationUser> u = applicationUserRepository.findAll();
         ApplicationUser currentUser = applicationUserRepository.findByUsername(p.getName());
         m.addAttribute("user", currentUser);
+        m.addAttribute("allusers", u);
         return "users";
     }
 
@@ -62,6 +65,7 @@ public class ApplicationUserController {
     public String getUsersId(@PathVariable long id, Principal p, Model m){
         ApplicationUser currentUser = applicationUserRepository.findById(id).get();
         m.addAttribute("user", currentUser);
+        m.addAttribute("currentUser", p);
         return "myprofile";
     }
 

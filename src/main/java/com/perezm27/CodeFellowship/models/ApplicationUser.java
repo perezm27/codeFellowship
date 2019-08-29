@@ -7,6 +7,7 @@ import javax.persistence.*;
 import java.sql.Date;
 import java.util.Collection;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 public class ApplicationUser implements UserDetails {
@@ -14,8 +15,10 @@ public class ApplicationUser implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     public Long id;
+    @Column(unique = true)
     public String username;
     public String password;
+
     public String firstname;
     public String lastname;
     public Date dateOfBirth;
@@ -23,6 +26,17 @@ public class ApplicationUser implements UserDetails {
 
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "user")
     List<UserPost> posts;
+
+    @ManyToMany
+    @JoinTable(
+            name = "user_followers",
+            joinColumns = { @JoinColumn(name="primaryUser")},
+            inverseJoinColumns = {@JoinColumn(name = "followedUser")}
+    )
+    Set<ApplicationUser> usersThatIFollow;
+
+    @ManyToMany(mappedBy = "usersThatIFollow")
+    Set<ApplicationUser> usersThatFollowMe;
 
 
     public ApplicationUser(){}
@@ -38,6 +52,14 @@ public class ApplicationUser implements UserDetails {
 
     public List<UserPost> getPosts() {
         return posts;
+    }
+
+    public void addFollowedUsers(ApplicationUser followedUser){
+        usersThatIFollow.add(followedUser);
+    }
+
+    public Set<ApplicationUser> getUsersThatIFollow(){
+        return this.usersThatIFollow;
     }
 
     @Override
@@ -73,5 +95,18 @@ public class ApplicationUser implements UserDetails {
     @Override
     public boolean isEnabled() {
         return true;
+    }
+
+    public String toString(){
+        StringBuilder followedUsersString = new StringBuilder();
+        if(this.usersThatIFollow.size() > 0){
+            followedUsersString.append(" Follows ");
+            for(ApplicationUser followedUser : this.usersThatIFollow){
+                followedUsersString.append(followedUser.username);
+                followedUsersString.append(", ");
+            }
+            followedUsersString.delete(followedUsersString.length() - 2, followedUsersString.length());
+        }
+        return String.format("%s", followedUsersString.toString());
     }
 }
